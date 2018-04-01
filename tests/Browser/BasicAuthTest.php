@@ -7,6 +7,8 @@ use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\User;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class BasicAuthTest extends DuskTestCase
 {
@@ -86,5 +88,20 @@ class BasicAuthTest extends DuskTestCase
          User::where(['email' => $this->user->email])->delete();
      }
 
+     public function testResetPassword()
+     {
+        Notification::fake();
+
+        $this->browse(function ($browser) {
+             $browser->visit('/password/reset')
+                     ->value('#email', $this->user->email)
+                     ->press('Send Password Reset Link')
+                     ->assertPathIs('/password/reset')
+                     ->assertSee('We have e-mailed your password reset link!');
+         });
+
+        Notification::hasSent($this->user, ResetPassword::class);
+        //Notification::assertSentTo($this->user, ResetPassword::class);
+     }
 
 }
