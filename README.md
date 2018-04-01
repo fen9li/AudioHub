@@ -1,5 +1,5 @@
 ## Versions
-**Version 0.1.2**
+**Version 0.1.3**
 
 ## Description
 - [x] Fresh install of Laravel Framework 5.5.40.
@@ -8,3 +8,4 @@
 - [x] Add basic auth - test register.
 - [x] Add basic auth - test login.
 - [x] Add basic auth - test reset password.
+- [x] Custom reset password email.

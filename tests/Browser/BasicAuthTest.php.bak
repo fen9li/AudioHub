@@ -9,8 +9,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\User;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Auth\Notifications\ResetPassword;
 
 class BasicAuthTest extends DuskTestCase
 {
@@ -103,6 +101,7 @@ class BasicAuthTest extends DuskTestCase
          });
 
         Notification::hasSent($this->user, ResetPassword::class);
+        //Notification::assertSentTo($this->user, ResetPassword::class);
      }
 
 }
