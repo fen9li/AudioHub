@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use Illuminate\Http\Request;
+use App\Events\UserRegisteredEvent;
+
 class RegisterController extends Controller
 {
     /*
@@ -37,6 +40,21 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+     /**
+      * Handle a registration request for the application.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @return \Illuminate\Http\Response
+      */
+     public function register(Request $request)
+     {
+         $this->validator($request->all())->validate();
+
+         $user = $this->create($request->all());
+         event(new UserRegisteredEvent($user));
+         return redirect()->back()->with('success','We have send you the verification link. Please check your email ... ');
     }
 
     /**
