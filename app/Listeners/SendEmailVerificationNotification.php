@@ -5,10 +5,13 @@ namespace App\Listeners;
 use App\Events\UserRegisteredEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Storage;
+
+use App\Notifications\EmailVerificationNotification;
 
 class SendEmailVerificationNotification
 {
+    private $token;
+
     /**
      * Create the event listener.
      *
@@ -27,8 +30,8 @@ class SendEmailVerificationNotification
      */
     public function handle(UserRegisteredEvent $event)
     {
+        $this->token = 'fake-token';
         // dd($event->user->id);
-        $message = $event->user->id . ' just logged in to the application.';
-        Storage::put('RegisterActivity.txt', $message);        
+        $event->user->notify(new EmailVerificationNotification($this->token));
     }
 }

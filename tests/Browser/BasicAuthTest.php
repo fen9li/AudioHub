@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Auth\Notifications\ResetPassword;
+use App\Notifications\EmailVerificationNotification;
 
 class BasicAuthTest extends DuskTestCase
 {
@@ -64,8 +65,9 @@ class BasicAuthTest extends DuskTestCase
                     ->value('#password-confirm', 'password')
                     ->press('Register')
                     ->pause(1000)
-                    ->assertPathIs('/home')
-                    ->assertSee("You are logged in!");
+                    //->assertPathIs('/home')
+                    ->assertPathIs('/register')
+                    ->assertSee("We have send you the verification link. Please check your email ...");
         });
     }
 
