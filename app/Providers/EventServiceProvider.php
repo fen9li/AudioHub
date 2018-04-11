@@ -14,6 +14,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'App\Events\UserRegisteredEvent' => [
+            'App\Listeners\SaveEmailVerificationToken',
             'App\Listeners\SendEmailVerificationNotification',
         ],
     ];

@@ -6,14 +6,13 @@ use App\Events\UserRegisteredEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use App\Notifications\EmailVerificationNotification;
 use App\Traits\EmailVerificationTrait;
 
-class SendEmailVerificationNotification
+class SaveEmailVerificationToken
 {
     use EmailVerificationTrait;
 
-    private $token;
+    private $user;
 
     /**
      * Create the event listener.
@@ -33,10 +32,13 @@ class SendEmailVerificationNotification
      */
     public function handle(UserRegisteredEvent $event)
     {
-        // get email verification token 
-        $this->token = $this->getSavedTokenByEmail($event->user->email);
+        // setup user
+        $this->user = $event->user;
 
-        // send email verification token link email
-        $event->user->notify(new EmailVerificationNotification($this->token));
+        // generate email verification token
+        $token = $this->generateToken();
+
+        // save email verification token to table email_verifications
+        $this->updateToken($this->user->email,$token);      
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Events\UserRegisteredEvent;
+use App\Listeners\SaveEmailVerificationToken;
 use App\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -18,10 +19,11 @@ class EmailVerificationEventTest extends TestCase
 
     /**
      * test user registration can dispatch an UserRegisteredEvent.
-     *
+     * test UserRegisteredEvent can trigger SaveEmailVerificationToken
+     * test UserRegisteredEvent can trigger SendEmailVerificationNotification
      * @return void
      */
-    public function testDispatchUserRegisteredEvent()
+    public function testSaveEmailVerificationTokenListener()
     {
         Event::fake();
 
@@ -36,9 +38,13 @@ class EmailVerificationEventTest extends TestCase
         //dd($user);
 
         $this->assertDatabaseHas('users',[
-            'email' => 'lifcn@yahoo.com'
+            'email' => 'lifcn@yahoo.com',
+            'is_verified' => 0,
         ]); 
 
+        $this->assertDatabaseHas('email_verifications',[
+            'email' => 'lifcn@yahoo.com',
+        ]);
 // the assertDispatched doesnt work
 // check the source code in
 // vendor/laravel/framework/src/Illuminate/Support/Testing/Fakes/EventFake.php
