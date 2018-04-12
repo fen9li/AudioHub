@@ -37,6 +37,6 @@ class SendEmailVerificationNotification
         $this->token = $this->getSavedTokenByEmail($event->user->email);
 
         // send email verification token link email
-        $event->user->notify(new EmailVerificationNotification($this->token));
+        $event->user->notify(new EmailVerificationNotification($event->user->email,$this->token));
     }
 }

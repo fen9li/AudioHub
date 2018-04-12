@@ -16,6 +16,7 @@ class EmailVerificationNotification extends Notification
      *
      * @var string
      */
+    public $email;
     public $token;
 
     /**
@@ -23,8 +24,9 @@ class EmailVerificationNotification extends Notification
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($email, $token)
     {
+        $this->email = $email;
         $this->token = $token;
     }
 
@@ -47,7 +49,7 @@ class EmailVerificationNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/verify/' . $this->token);
+        $url = url('/verify/' . $this->token . '?email=' . urlencode($this->email));
         return (new MailMessage)->subject('From ' . config('mail.from.name') . ': You Email Verification Link')
                                 ->from(config('mail.from.address'))
                                 ->markdown('mail.auth.EmailVerificationNotification',['url' => $url]);

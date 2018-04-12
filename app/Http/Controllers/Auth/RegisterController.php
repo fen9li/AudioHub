@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    //protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -54,7 +54,7 @@ class RegisterController extends Controller
 
          $user = $this->create($request->all());
          event(new UserRegisteredEvent($user));
-         return redirect()->back()->with('success','We have send you the verification link. Please check your email ... ');
+         return redirect('/')->with('success','We have send you the verification link. Please check your email ... ');
     }
 
     /**

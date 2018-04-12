@@ -5,6 +5,9 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+use App\Exceptions\UserNotFoundException;
+use App\Exceptions\EmailVerificationLinkBrokenException;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -48,6 +51,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof UserNotFoundException) {
+            return redirect('/register')->with('message',$exception->getMessage()); }
+        if ($exception instanceof ActivationLinkBrokenException) {
+            return redirect('/login')->with('message',$exception->getMessage()); }
+
         return parent::render($request, $exception);
     }
 }
