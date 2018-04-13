@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof UserNotFoundException) {
             return redirect('/register')->with('message',$exception->getMessage()); }
-        if ($exception instanceof ActivationLinkBrokenException) {
+        if ($exception instanceof EmailVerificationLinkBrokenException) {
             return redirect('/login')->with('message',$exception->getMessage()); }
 
         return parent::render($request, $exception);

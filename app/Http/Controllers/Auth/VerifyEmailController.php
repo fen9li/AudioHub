@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\EmailVerificationTrait;
+use App\Exceptions\EmailVerificationLinkBrokenException;
 
 class VerifyEmailController extends Controller
 {
@@ -37,7 +38,7 @@ class VerifyEmailController extends Controller
             $this->markUserEmailIsVerified($user);
             $this->clearUsedToken($request->input('email'));
             $this->guard()->login($user, 'true');
-            return redirect('/home')->with('success','Your email has been verified successfully. Thank you for using this application! ');;
+            return redirect('/home')->with('success','Your email has been verified successfully. Thank you for using this application!');
         } else {
             throw new EmailVerificationLinkBrokenException();
         }
