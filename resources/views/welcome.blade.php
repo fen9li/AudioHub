@@ -14,8 +14,13 @@
                         </div>
                     @endif
 
+                    @if (Session::has('message'))
+                        <div class="alert alert-info">
+                            {{ Session::get('message') }}
+                        </div>
+                    @endif
                     @if (session('status'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-info">
                             {{ session('status') }}
                         </div>
                     @endif

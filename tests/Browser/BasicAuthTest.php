@@ -38,7 +38,7 @@ class BasicAuthTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->assertSee('REGISTER')
+                    ->assertSee('Register')
                     ->clickLink('Register')
                     //->pause(1000)
                     ->assertSeeIn('form','Register');
@@ -48,12 +48,16 @@ class BasicAuthTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->assertSee('LOGIN')
+                    ->assertSee('Login')
                     ->clickLink('Login')
                     //->pause(1000)
                     ->assertSeeIn('form','Login');
         });
     }
+
+   /*
+    // stop this test to avoid sending emails
+    // mock can't work with mocking together at this moment
 
     public function testRegister()
     {
@@ -66,10 +70,17 @@ class BasicAuthTest extends DuskTestCase
                     ->press('Register')
                     ->pause(1000)
                     //->assertPathIs('/home')
-                    ->assertPathIs('/register')
+                    ->assertPathIs('/')
                     ->assertSee("We have send you the verification link. Please check your email ...");
         });
     }
+    */
+
+
+   /*
+    // stop this test to avoid sending emails
+    // mock can't work with mocking together at this moment
+     // test login user failed to verify his email
 
      public function testLogin()
      {
@@ -83,14 +94,16 @@ class BasicAuthTest extends DuskTestCase
                      ->value('#email', $this->user->email)
                      ->value('#password', 'test01pass')
                      ->press('Login')
-                     ->assertPathIs('/home')
-                     ->assertSee("You are logged in!");
+                     ->assertPathIs('/')
+                     ->assertSee('We have send you the email verification link. Please verify your email first.Thank you for using this application.');
          });
 
          // Tear Down
          // Delete test user
          User::where(['email' => $this->user->email])->delete();
      }
+
+     */
 
      public function testResetPassword()
      {

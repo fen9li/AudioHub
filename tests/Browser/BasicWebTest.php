@@ -12,8 +12,8 @@ class BasicWebTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->assertSee('Laravel')
-                    ->assertSee('DOCUMENTATION')
+                    ->assertSee('AudioHub')
+                    ->assertSeeLink('Documentation')
                     ->assertTitle('AudioHub');
         });
     }

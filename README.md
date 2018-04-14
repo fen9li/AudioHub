@@ -23,3 +23,9 @@
 - [x] Redirect user to '/home' after verify email
 - [x] Update home page to display session 'success' message
 - [x] Custom welcome page
+
+- [x] Create EmailVerificationMiddleware and its accompany tests 
+- [x] Hookup email.verification Middleware and LoginController login route
+- [x] Update old dusk tests to fix the broken tests
+- [x] Update welcome blade to display session message
+- [x] Ensure all feature tests and dusk tests pass successfully
