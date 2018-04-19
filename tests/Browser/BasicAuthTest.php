@@ -7,11 +7,8 @@ use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\User;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Auth\Notifications\ResetPassword;
-use App\Notifications\EmailVerificationNotification;
 
 class BasicAuthTest extends DuskTestCase
 {
@@ -55,16 +52,13 @@ class BasicAuthTest extends DuskTestCase
         });
     }
 
-   /*
-    // stop this test to avoid sending emails
-    // mock can't work with mocking together at this moment
-
+    // Dusk can't work with mocking together at the time of this testing
     public function testRegister()
     {
         $this->browse(function ($browser) {
             $browser->visit('/register')
-                    ->value('#name', 'Feng Li')
-                    ->value('#email', 'lifcn@yahoo.com')
+                    ->value('#name', 'test01')
+                    ->value('#email', 'test01@yahoo.com')
                     ->value('#password', 'password')
                     ->value('#password-confirm', 'password')
                     ->press('Register')
@@ -74,41 +68,27 @@ class BasicAuthTest extends DuskTestCase
                     ->assertSee("We have send you the verification link. Please check your email ...");
         });
     }
-    */
 
-
-   /*
-    // stop this test to avoid sending emails
-    // mock can't work with mocking together at this moment
-     // test login user failed to verify his email
-
+    // Dusk can't work with mocking together at the time of this testing
      public function testLogin()
      {
-         //var_dump($user->email);
-         $this->user->email = 'lifcn@yahoo.com';
-         $this->user->password = bcrypt('test01pass');  
-         $this->user->save();
+         $this->createBin();
 
          $this->browse(function ($browser) {
              $browser->visit('/login')
                      ->value('#email', $this->user->email)
-                     ->value('#password', 'test01pass')
+                     ->value('#password', 'password')
                      ->press('Login')
                      ->assertPathIs('/')
                      ->assertSee('We have send you the email verification link. Please verify your email first.Thank you for using this application.');
          });
 
-         // Tear Down
-         // Delete test user
-         User::where(['email' => $this->user->email])->delete();
+         $this->deleteBin();
      }
-
-     */
 
      public function testResetPassword()
      {
-        Notification::fake();
-
+        $this->createBin();
         $this->browse(function ($browser) {
              $browser->visit('/password/reset')
                      ->value('#email', $this->user->email)
@@ -116,8 +96,21 @@ class BasicAuthTest extends DuskTestCase
                      ->assertPathIs('/password/reset')
                      ->assertSee('We have e-mailed your password reset link!');
          });
-
-        Notification::hasSent($this->user, ResetPassword::class);
+         $this->deleteBin();
      }
 
+     private function createBin()
+     { 
+         //var_dump($user->email);
+         $this->user->email = 'test01@yahoo.com';
+         $this->user->password = bcrypt('password');
+         $this->user->save();
+     }
+     
+     private function deleteBin()
+     {
+         // Tear Down
+         // Delete test user
+         User::where(['email' => $this->user->email])->delete();
+     }
 }

@@ -33,8 +33,8 @@ class CheckEmailVerificationMiddlewareTest extends DuskTestCase
     public function testVerifyEmail()
     {
          //var_dump($user->email);
-         $this->user->email = 'lifcn@yahoo.com';
-         $this->user->password = bcrypt('test01pass');
+         $this->user->email = 'test01@yahoo.com';
+         $this->user->password = bcrypt('password');
          $this->user->is_verified = 1;
          $this->user->verified_at = Carbon::yesterday();
          $this->user->save();
@@ -42,7 +42,7 @@ class CheckEmailVerificationMiddlewareTest extends DuskTestCase
          $this->browse(function ($browser) {
              $browser->visit('/login')
                      ->value('#email', $this->user->email)
-                     ->value('#password', 'test01pass')
+                     ->value('#password', 'password')
                      ->press('Login')
                      ->assertPathIs('/home')
                      ->assertSee($this->user->name)
