@@ -29,3 +29,4 @@
 - [x] Update old dusk tests to fix the broken tests
 - [x] Update welcome blade to display session message
 - [x] Ensure all feature tests and dusk tests pass successfully
+- [x] Queue email notification successfully
