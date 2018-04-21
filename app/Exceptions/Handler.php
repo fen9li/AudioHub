@@ -5,6 +5,12 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+<<<<<<< HEAD
+=======
+use App\Exceptions\UserNotFoundException;
+use App\Exceptions\EmailVerificationLinkBrokenException;
+
+>>>>>>> hotfix
 class Handler extends ExceptionHandler
 {
     /**
@@ -48,6 +54,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+<<<<<<< HEAD
+=======
+        if ($exception instanceof UserNotFoundException) {
+            return redirect('/register')->with('message',$exception->getMessage()); }
+        if ($exception instanceof EmailVerificationLinkBrokenException) {
+            return redirect('/login')->with('message',$exception->getMessage()); }
+
+>>>>>>> hotfix
         return parent::render($request, $exception);
     }
 }

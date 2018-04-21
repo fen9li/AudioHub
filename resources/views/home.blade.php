@@ -8,6 +8,15 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
+<<<<<<< HEAD
+=======
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
+
+>>>>>>> hotfix
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}

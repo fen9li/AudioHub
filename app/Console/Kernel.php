@@ -26,6 +26,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+<<<<<<< HEAD
+=======
+        // Run once a minute
+        $schedule->command('queue:work')->everyMinute();
+>>>>>>> hotfix
     }
 
     /**

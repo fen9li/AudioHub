@@ -8,6 +8,17 @@
                 <div class="panel-heading">Register</div>
 
                 <div class="panel-body">
+<<<<<<< HEAD
+=======
+
+@if (Session::has('success'))
+   <div class="alert alert-success">{{ Session::get('success') }}</div>
+@endif
+@if (Session::has('message'))
+   <div class="alert alert-info">{{ Session::get('message') }}</div>
+@endif
+
+>>>>>>> hotfix
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 

@@ -34,6 +34,10 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+<<<<<<< HEAD
+=======
+        $this->middleware('email.verification',['only' => 'login']);
+>>>>>>> hotfix
         $this->middleware('guest')->except('logout');
     }
 }
