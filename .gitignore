@@ -12,3 +12,5 @@ yarn-error.log
 .env
 .env.dusk.local
 *.orig
+Dockerfile-c7*
+Dockerfile.bak
